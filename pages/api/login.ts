@@ -6,7 +6,6 @@ import md5 from 'md5';
 import { UsuarioModel } from "../../models/UsuarioModels";
 import jwt from 'jsonwebtoken';
 
-
 const endpointLogin = async (
     req : NextApiRequest,
     res : NextApiResponse<RespostaPadraoMsg | any>
@@ -23,13 +22,16 @@ const endpointLogin = async (
         const usuariosEncontrados = await UsuarioModel.find({email : login, senha : md5(senha)});
         if(usuariosEncontrados && usuariosEncontrados.length > 0){
             const usuarioEncontrado = usuariosEncontrados[0];
-
+            console.log('MINHA_CHAVE_JWT', req.body);
             const token = jwt.sign({_id : usuarioEncontrado._id}, MINHA_CHAVE_JWT);
+            
             return res.status(200).json({
                 nome : usuarioEncontrado.nome,
                 email : usuarioEncontrado.email,
                 token});
+                
         }
+        
         return res.status(405).json({erro : 'Usuário ou senha não encontrado'});
     }
     return res.status(405).json({erro : 'Metódo informado não é válido'});
