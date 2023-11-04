@@ -14,18 +14,25 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const uploadImagemCosmic = async (req: any) => {
-    if (req?.file?.originalname) {
+    if (req?.arq?.originalname) {
         if (
-        !req.file.originalname.includes(".png") &&
-        !req.file.originalname.includes(".jpg") &&
-        !req.file.originalname.includes(".jpeg")
+        !req.arq.originalname.includes(".png") &&
+        !req.arq.originalname.includes(".jpg") &&
+        !req.arq.originalname.includes(".jpeg")
         ){
             throw new Error("Formato de imagem inválido");
         }
 
+        const value = req.arq?.originalname.data;
+        if (value !== undefined) {
+            console.log(value);
+        } else {
+            console.log("File não definido");
+        }
+
         const media_obeject = {
-            originalname: req.file.originalname,
-            buffer: req.file.buffer,
+            originalname: req.arq.originalname,
+            buffer: req.arq.buffer,
         };
 
         if (req.url && req.url.includes("publicacao")) {
