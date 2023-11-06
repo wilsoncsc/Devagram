@@ -1,17 +1,9 @@
 import jwt from "jsonwebtoken"
-import jwt from "jsonwebtoken"
-import md5 from "md5"
 import md5 from "md5"
 import type { NextApiRequest, NextApiResponse } from "next"
-import type { NextApiRequest, NextApiResponse } from "next"
-import { NextApiRequest, NextApiResponse } from 'next'
 import type { Config } from 'tailwindcss'
-import { UsuarioModel } from "../../models/UsuarioModels"
-import { UsuarioModel } from "../../models/UsuarioModels"
-import type { RespostaPadraoMsg } from "../../types/RespostaPadraoMsg"
-import type { RespostaPadraoMsg } from "../../types/RespostaPadraoMsg"
-import { UsuarioModel } from './models/UsuarioModels'
-import { RespostaPadraoMsg } from './types/RespostaPadraoMsg'
+import {UsuarioModel} from '../../Project/devagram-nextjs/models/UsuarioModels';
+import {RespostaPadraoMsg} from '../../Project/devagram-nextjs/types/RespostaPadraoMsg';
 
 const config: Config = {
   content: [
@@ -48,7 +40,7 @@ export const endpointLogin = async (
         if (usuariosEncontrados && usuariosEncontrados.length > 0) {
             const usuarioEncontrado = usuariosEncontrados[0];
 
-            const token = jwt.sign({ _id: usuarioEncontrado._id }, MINHA_CHAVE_JWT);
+            const token = jwt.sign({ _id: usuarioEncontrado._id }, 'MINHA_CHAVE_JWT');
             return res.status(200).json({
                 nome: usuarioEncontrado.nome,
                 email: usuarioEncontrado.email,

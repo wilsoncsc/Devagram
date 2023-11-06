@@ -14,44 +14,44 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const uploadImagemCosmic = async (req: any) => {
-    if (req?.arq?.originalname) {
+    if (req?.file?.originalname) {
         if (
-        !req.arq.originalname.includes(".png") &&
-        !req.arq.originalname.includes(".jpg") &&
-        !req.arq.originalname.includes(".jpeg")
+        !req.file.originalname.includes('.png') &&
+        !req.file.originalname.includes('.jpg') &&
+        !req.file.originalname.includes('.jpeg')
         ){
             throw new Error("Formato de imagem inválido");
         }
 
-        const value = req.arq?.originalname.data;
+        const value = req.file?.originalname.data;
         if (value !== undefined) {
             console.log(value);
         } else {
-            console.log("File não definido");
+            console.log('File não definido');
         }
 
         const media_obeject = {
-            originalname: req.arq.originalname,
-            buffer: req.arq.buffer,
+            originalname: req.file.originalname,
+            buffer: req.file.buffer,
         };
 
-        if (req.url && req.url.includes("publicacao")) {
+        if (req.url && req.url.includes('publicacao')) {
             return await bucketDevagram.media.insertOne({
                 media: media_obeject,
-                folder: "publicacao",
+                folder: 'publicacao',
             });
-        } else if (req.url && req.url.includes("usuario")) {
+        } else if (req.url && req.url.includes('usuario')) {
             return await bucketDevagram.media.insertOne({
                 media: media_obeject,
-                folder: "avatar",
+                folder: 'avatar',
         });
         } else {
             return await bucketDevagram.media.insertOne({
                 media: media_obeject,
-                folder: "stories",
+                folder: 'stories',
             });
         }
     }
 };
 
-export { upload, uploadImagemCosmic };
+export {upload, uploadImagemCosmic};

@@ -1,6 +1,6 @@
 import mongoose, {Schema} from "mongoose";
 
-const PublicacaoSchma = new Schema({
+const PublicacaoSchema = new Schema({
     idUsuario : {type : String, required : true},
     descricao : {type : String, required : true},
     foto : {type : String, required : true},
@@ -10,4 +10,4 @@ const PublicacaoSchma = new Schema({
 });
 
 export const PublicacaoModel = (mongoose.models.publicacoes ||
-    mongoose.model('publicacoes', PublicacaoSchma));
+    mongoose.model('publicacoes', PublicacaoSchema));
