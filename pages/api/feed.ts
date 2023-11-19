@@ -4,18 +4,16 @@ import {validarTokenJWT} from '../../middlewares/validarTokenJWT';
 import {conectrMongoDB} from '../../middlewares/conectaMongoDB';
 import { UsuarioModel } from '../../models/UsuarioModels';
 import { PublicacaoModel } from '../../models/PublicacaoModel';
-import usuario from './usuario';
-import publicacao from './publicacao';
-import { Console } from 'console';
+import { get } from 'http';
 
 const feedEndpoint = async (req : NextApiRequest, res : NextApiResponse<RespostaPadraoMsg | any>) => {
     try{
-        if(req.method ===  'GET'){
+        if(req.method === "GET"){
             console.log(req.method);
-            if(!req?.query?.id){
+            if(req?.query?.id){
                 const usuario = await UsuarioModel.findById(req?.query?.id);
                 if(!usuario){
-                    return res.status(400).json({erro : 'Uusário não encontrado'});
+                    return res.status(400).json({erro : 'Usário não encontrado'});
                 }
             
                 const publicacoes = await PublicacaoModel
@@ -24,7 +22,6 @@ const feedEndpoint = async (req : NextApiRequest, res : NextApiResponse<Resposta
 
                 return res.status(200).json(publicacoes);
             }
-            
         }
         return res.status(405).json({erro : 'Método informado não é válido'});
     }catch(e){
